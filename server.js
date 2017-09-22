@@ -11,8 +11,9 @@ const PORT = 3001;
 
 // Routes
 // =============================================================
-app.get("/", function(req, res){
-    res.sendFile(path.join(__dirname, "./app/public/home.html"));
+app.get("/:id/:id2", function(req, res){
+    // res.sendFile(path.join(__dirname, "./app/public/home.html"));
+    res.send(req.params);
 });
 
 app.get("/survey", function(req, res){
