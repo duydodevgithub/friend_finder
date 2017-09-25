@@ -1,27 +1,20 @@
-// Dependencies
-// =============================================================
-const express = require("express");
-const path = require("path");
-const bodyParser = require("body-parser");
-// Sets up the Express App
-// =============================================================
-const app = express();
-const PORT = 3001;
+//dependencies
+var express = require("express");
+var bodyParser = require("body-parser");
+var path = require("path");
 
+var app = express();
+var PORT = process.env.PORT || 3001;
 
-// Routes
-// =============================================================
-app.get("/:id/:id2", function(req, res){
-    // res.sendFile(path.join(__dirname, "./app/public/home.html"));
-    res.send(req.params);
-});
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.text());
 
-app.get("/survey", function(req, res){
-    res.sendFile(path.join(__dirname, "./app/public/survey.html"));
-});
+app.use(express.static('public'));
+require("./app/routing/apiRoutes")(app);
+require("./app/routing/htmlRoutes")(app);
 
-// Starts the server to begin listening
-// =============================================================
+//listening
 app.listen(PORT, function() {
-    console.log("App listening on PORT " + PORT);
-  });
+  console.log("App listening on PORT " + PORT);
+});
